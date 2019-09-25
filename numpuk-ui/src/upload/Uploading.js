@@ -22,8 +22,7 @@ export class Hooks extends Component {
   }
 
   componentDidMount = () => {
-    // const nick = window.prompt("Your name:", "John");
-    const nick = "John";
+    const nick = window.prompt("Your name:", "John");
 
     const hubConnection = new HubConnectionBuilder()
       .withUrl("/chatHub")
