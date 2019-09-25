@@ -7,6 +7,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/core/styles";
 import { UploadButton } from "./UploadButton";
 import { Dropzone } from "./Dropzone";
+import { Uploading } from "./Uploading";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,7 +58,11 @@ export const UploadDialog = () => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <div className={classes.root}>
-              {hasNoFiles() ? <Dropzone onDrop={onDrop} /> : <p>Mamy pliki</p>}
+              {hasNoFiles() ? (
+                <Dropzone onDrop={onDrop} />
+              ) : (
+                <Uploading files={files} />
+              )}
             </div>
           </DialogContentText>
         </DialogContent>

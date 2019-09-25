@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Hooks } from "./Hooks";
 import { UploadDialog } from "./upload/UploadDialog";
 
 function App() {
@@ -12,9 +11,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div>
       <UploadDialog />
-      <Hooks />
     </div>
   );
 }

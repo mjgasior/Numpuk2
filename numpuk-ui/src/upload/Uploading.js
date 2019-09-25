@@ -7,74 +7,39 @@ const Container = styled.div`
   background-color: gray;
 `;
 
-// https://cli.vuejs.org/config/#devserver-proxy
-
-export class Hooks extends Component {
+export class Uploading extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      nick: "",
-      message: "",
-      messages: [],
-      hubConnection: null
-    };
+    this.state = { hubConnection: null, message: "" };
   }
 
   componentDidMount = () => {
-    const nick = window.prompt("Your name:", "John");
-
     const hubConnection = new HubConnectionBuilder()
-      .withUrl("/chatHub")
+      .withUrl("https://localhost:44392/filesHub")
       .build();
 
-    this.setState({ hubConnection, nick }, () => {
+    this.setState({ hubConnection }, () => {
       this.state.hubConnection
         .start()
-        .then(() => console.log("Connection started!"))
+        .then(() => {
+          console.log("Connection started!");
+          this.state.hubConnection
+            .invoke("SendFiles", this.props.files)
+            .catch(err => console.error(err));
+        })
         .catch(err => console.log("Error while establishing connection :("));
 
-      this.state.hubConnection.on("ReceiveMessage", (nick, receivedMessage) => {
-        const text = `${nick}: ${receivedMessage}`;
-        const messages = this.state.messages.concat([text]);
-        this.setState({ messages });
+      this.state.hubConnection.on("FilesAccepted", messageFromServer => {
+        console.log(messageFromServer);
+        this.setState({ message: messageFromServer });
       });
     });
-  };
-
-  sendMessage = () => {
-    this.state.hubConnection
-      .invoke("SendMessage", this.state.nick, this.state.message)
-      .catch(err => console.error(err));
-
-    this.setState({ message: "" });
   };
 
   render() {
     return (
       <Container>
-        <br />
-        <input
-          type="text"
-          value={this.state.message}
-          onChange={e => this.setState({ message: e.target.value })}
-        />
-
-        <button onClick={this.sendMessage}>Send</button>
-
-        <div>
-          {this.state.messages.map((message, index) => (
-            <span style={{ display: "block" }} key={index}>
-              {" "}
-              {message}{" "}
-            </span>
-          ))}
-        </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        <div>{this.state.message}</div>
       </Container>
     );
   }
