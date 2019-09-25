@@ -19,7 +19,7 @@ export class Hooks extends Component {
     const nick = window.prompt("Your name:", "John");
 
     const hubConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:44392/chatHub")
+      .withUrl("/chatHub")
       .build();
 
     this.setState({ hubConnection, nick }, () => {
@@ -64,6 +64,11 @@ export class Hooks extends Component {
             </span>
           ))}
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </div>
     );
   }
