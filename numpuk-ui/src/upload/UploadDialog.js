@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,7 +34,6 @@ export const UploadDialog = () => {
   const classes = useStyles();
 
   const onDrop = useCallback(acceptedFiles => {
-    console.log(acceptedFiles);
     setFiles(acceptedFiles);
   }, []);
 
@@ -56,15 +54,13 @@ export const UploadDialog = () => {
       >
         <DialogTitle id="alert-dialog-title">Przeciągnij pliki</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <div className={classes.root}>
-              {hasNoFiles() ? (
-                <Dropzone onDrop={onDrop} />
-              ) : (
-                <Uploading files={files} />
-              )}
-            </div>
-          </DialogContentText>
+          <div className={classes.root}>
+            {hasNoFiles() ? (
+              <Dropzone onDrop={onDrop} />
+            ) : (
+              <Uploading files={files} />
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
