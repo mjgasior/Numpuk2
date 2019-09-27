@@ -58,7 +58,7 @@ export const UploadDialog = () => {
             {hasNoFiles() ? (
               <Dropzone onDrop={onDrop} />
             ) : (
-              <Uploading files={files} />
+              <Uploading files={files} onDone={() => setOpen(false)} />
             )}
           </div>
         </DialogContent>
