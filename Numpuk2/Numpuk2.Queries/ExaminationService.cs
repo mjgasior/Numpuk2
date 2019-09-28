@@ -2,6 +2,7 @@
 using Numpuk2.Data;
 using Numpuk2.Domain;
 using Numpuk2.Domain.Parameters;
+using Numpuk2.Queries.Models;
 using Numpuk2.Queries.Pagination;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Numpuk2.Queries
             _context = new NumpukContext(password, port);
         }
 
-        public PagedResult<Examination> GetAllExaminations(int page, int count, int? gender, double[] ph, Consistency[] consistency)
+        public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, int? gender, double[] ph, Consistency[] consistency)
         {
             double minPh = ph.Length < 2 ? 0 : ph[0];
             double maxPh = ph.Length < 2 ? 14 : ph[1];
@@ -38,13 +39,13 @@ namespace Numpuk2.Queries
                 .Include(x => x.Results)
                 .GetPaged(page, count);
 
-            var newList = new List<Examination>();
+            var newList = new List<ExaminationResponse>();
 
             foreach (Examination examination in examinations.Results)
             {
-                newList.Add(new Examination
+                newList.Add(new ExaminationResponse
                 {
-                    Client = new Client
+                    Client = new ClientResponse
                     {
                         Address = examination.Client.Address,
                         Birthday = examination.Client.Birthday,
@@ -57,12 +58,12 @@ namespace Numpuk2.Queries
                     HasFaecalibactriumPrausnitzii = examination.HasFaecalibactriumPrausnitzii,
                     Id = examination.Id,
                     PhValue = examination.PhValue,
-                    Results = examination.Results.Select(x => new Result(x.Name, x.Value)).ToList(),
+                    Results = examination.Results.Select(x => new ResultResponse(x.Name, x.Value)).ToList(),
                     Type = examination.Type
                 });
             }
 
-            var result = new PagedResult<Examination>
+            var result = new PagedResult<ExaminationResponse>
             {
                 CurrentPage = examinations.CurrentPage,
                 PageCount = examinations.PageCount,

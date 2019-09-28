@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Numpuk2.Domain;
 using Numpuk2.Domain.Parameters;
 using Numpuk2.Queries;
+using Numpuk2.Queries.Models;
 using Numpuk2.Queries.Pagination;
 
 namespace Numpuk2.Controllers
@@ -22,7 +18,7 @@ namespace Numpuk2.Controllers
         }
 
         [HttpGet("examinations")]
-        public PagedResult<Examination> GetExaminations([FromQuery] string password)
+        public PagedResult<ExaminationResponse> GetExaminations([FromQuery] string password)
         {
             var service = new ExaminationService(password, "5433");
             var ph = new double[] { 0.0, 14.0 };

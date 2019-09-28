@@ -17,23 +17,27 @@ function App() {
   const [password, setPassword] = useState("");
   const [hasPassword, setHasPassword] = useState("");
 
-  return (
-    <AppContainer>
-      {hasPassword ? (
-        <AccessContext.Provider value={password}>
+  if (hasPassword) {
+    return (
+      <AccessContext.Provider value={password}>
+        <AppContainer style={{ alignItems: "unset", justifyContent: "unset" }}>
           <UploadDialog />
           <Examinations />
-        </AccessContext.Provider>
-      ) : (
+        </AppContainer>
+      </AccessContext.Provider>
+    );
+  } else {
+    return (
+      <AppContainer>
         <AccessView
           onPasswordSet={newPassword => {
             setPassword(newPassword);
             setHasPassword(true);
           }}
         />
-      )}
-    </AppContainer>
-  );
+      </AppContainer>
+    );
+  }
 }
 
 export default App;
