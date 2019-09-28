@@ -9,7 +9,7 @@ namespace Numpuk2.Utils
 
         public Logger()
         {
-            _logs = File.CreateText($"logs_{DateTime.Now.Ticks}.txt");
+            _logs = File.CreateText($"logs_{DateTime.Now.Ticks}.log");
         }
 
         public void InvalidTest(string fileName, string testName)
