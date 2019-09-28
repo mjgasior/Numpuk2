@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System.IO;
-using System.Threading;
+using Numpuk2.Utils;
 using System.Threading.Tasks;
 
 namespace Numpuk2.Hubs
@@ -9,36 +8,11 @@ namespace Numpuk2.Hubs
     {
         public async Task SendDirectory(UploadModel model)
         {
-            string directory = model.Directory;
             await Clients.All.SendAsync("FilesAccepted", "Pliki w trakcie procesowania...");
-            var reader = new ExaminationReader.ExaminationReader();
+            string[] filePaths = Utils.Directory.GetAllFileNames(model.Directory);
 
-            string[] filePaths = Directory.GetFiles(directory, "*.xlsx");
-
-            int TOTAL_COUNT = filePaths.Length;
-            int count = 0;
-            foreach (string filePath in filePaths)
-            {
-                var result = new Progress
-                {
-                    FileName = Path.GetFileName(filePath),
-                    FileNumber = ++count,
-                    TotalCount = TOTAL_COUNT,
-                    Error = null
-                };
-
-                try
-                {
-                    var examination = reader.Read(filePath);
-                }
-                catch (System.Exception)
-                {
-                    result.FileName += " UWAGA BŁĄD";
-                    result.Error = "Napotkano problem!";   
-                }
-                await Clients.All.SendAsync("FileProcessed", result);
-                Thread.Sleep(1000);
-            }
+            var parser = new Parser(filePaths, model.Password, "5433", new Logger());
+            await parser.Run(Clients.All);
             await Clients.All.SendAsync("AllFilesDone");
         }
     }
@@ -47,13 +21,5 @@ namespace Numpuk2.Hubs
     {
         public string Directory { get; set; }
         public string Password { get; set; }
-    }
-
-    public class Progress
-    {
-        public int FileNumber { get; set; }
-        public int TotalCount { get; set; }
-        public string FileName { get; set; }
-        public string Error { get; set; }
     }
 }

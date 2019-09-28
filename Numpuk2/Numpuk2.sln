@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpuk2.ExaminationReader",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numpuk2.Domain", "Numpuk2.Domain\Numpuk2.Domain.csproj", "{18381A98-6448-42F8-8988-C727D463D05B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numpuk2.Data", "Numpuk2.Data\Numpuk2.Data.csproj", "{007CD450-4E75-43B7-9877-0757E128BFA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{18381A98-6448-42F8-8988-C727D463D05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18381A98-6448-42F8-8988-C727D463D05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18381A98-6448-42F8-8988-C727D463D05B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{007CD450-4E75-43B7-9877-0757E128BFA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{007CD450-4E75-43B7-9877-0757E128BFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{007CD450-4E75-43B7-9877-0757E128BFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{007CD450-4E75-43B7-9877-0757E128BFA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

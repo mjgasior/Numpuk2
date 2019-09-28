@@ -9,13 +9,8 @@ import { UploadDialogContent } from "./UploadDialogContent";
 export const UploadDialog = () => {
   const [open, setOpen] = useState(false);
 
-  function handleClickOpen() {
-    setOpen(true);
-  }
-
-  function handleClose() {
-    setOpen(false);
-  }
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
