@@ -11,7 +11,7 @@ export const Examinations = () => {
   return (
     <>
       <Header {...pagination} values={examinations}/>
-      <Filters />
+      <Filters onTestTypeChanged={setFamilies} />
       <ExaminationsTable testTypes={testTypes} data={examinations.results} />
     </>
   );

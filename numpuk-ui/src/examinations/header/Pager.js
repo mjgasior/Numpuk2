@@ -11,7 +11,7 @@ const Text = styled.div`
   padding: 6px 18px;
 `;
 
-export const Pager = ({ page, pageCount, currentPage, setPage }) => {
+export const Pager = ({ page, pageCount, totalCount, currentPage, setPage }) => {
   const hasPrevious = page > 1;
   const hasNext = page < pageCount;
   const isLoading = page !== currentPage;
@@ -28,9 +28,11 @@ export const Pager = ({ page, pageCount, currentPage, setPage }) => {
         Poprzednia strona
       </Button>
 
-      <Text>
-        {currentPage} / {pageCount}
-      </Text>
+      {totalCount && (
+        <Text>
+          {currentPage} / {pageCount} ({totalCount})
+        </Text>
+      )}
       {hasNext && (
         <Button disabled={isLoading} onClick={() => setPage(page + 1)}>
           Następna strona

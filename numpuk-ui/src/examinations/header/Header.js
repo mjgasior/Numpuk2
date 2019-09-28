@@ -29,6 +29,7 @@ export const Header = ({
       <Pager
         page={page}
         pageCount={values.pageCount}
+        totalCount={values.rowCount}
         currentPage={values.currentPage}
         setPage={setPage}
       />
