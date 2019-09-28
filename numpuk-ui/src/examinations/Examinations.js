@@ -6,13 +6,13 @@ import { Filters } from "./filters/Filters";
 import { Header } from "./header/Header";
 
 export const Examinations = () => {
-  const val = useExaminations();
+  const { examinations, pagination } = useExaminations();
   const [testTypes, setFamilies] = useTestTypes();
   return (
     <>
-      <Header page={1} values={{ pageCount: 1 }}/>
+      <Header {...pagination} values={examinations}/>
       <Filters />
-      <ExaminationsTable testTypes={testTypes} data={val.results} />
+      <ExaminationsTable testTypes={testTypes} data={examinations.results} />
     </>
   );
 };

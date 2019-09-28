@@ -2,11 +2,17 @@ import { useEffect, useContext, useState } from "react";
 import { AccessContext } from "../access/AccessContext";
 
 export const useExaminations = () => {
+  const [page, setPageInternal] = useState(1);
+  const [count, setCountInternal] = useState(25);
+
   const password = useContext(AccessContext);
-  const [examinations, setExaminations] = useState({ results: [] });
+  const [examinations, setExaminations] = useState({
+    results: [],
+    currentPage: 1
+  });
 
   useEffect(() => {
-    const url = `/values/examinations?password=${password}`;
+    const url = `/values/examinations?password=${password}&page=${page}&count=${count}`;
     fetch(url)
       .then(resp => resp.json())
       .then(data => setExaminations(data));
@@ -41,7 +47,25 @@ export const useExaminations = () => {
         }
       });
   }, [page, gender, ph, consistency, isSavePages, count]);*/
-  }, [password]);
+  }, [password, page, setPageInternal, count, setCountInternal]);
 
-  return examinations;
+  const resetPages = () => {
+    setPageInternal(1);
+    if (page !== 1) {
+      setExaminations({ results: [], currentPage: 1 });
+    }
+  };
+
+  return {
+    examinations,
+    pagination: {
+      page,
+      setPage: setPageInternal,
+      count,
+      setCount: c => {
+        resetPages();
+        setCountInternal(c);
+      }
+    }
+  };
 };
