@@ -3,6 +3,7 @@ import { UploadDialog } from "./upload/UploadDialog";
 import { AccessContext } from "./access/AccessContext";
 import { AccessView } from "./access/AccessView";
 import styled from "styled-components";
+import { Examinations } from "./examinations/Examinations";
 
 const AppContainer = styled.div`
   flex-grow: 1;
@@ -21,6 +22,7 @@ function App() {
       {hasPassword ? (
         <AccessContext.Provider value={password}>
           <UploadDialog />
+          <Examinations />
         </AccessContext.Provider>
       ) : (
         <AccessView
