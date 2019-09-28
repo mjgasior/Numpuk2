@@ -28,7 +28,7 @@ export class Uploading extends Component {
         .then(() => {
           console.log("Connection started!");
           this.state.hubConnection
-            .invoke("SendFiles", this.props.files)
+            .invoke("SendDirectory", this.props.directory)
             .catch(err => console.error(err));
         })
         .catch(err => console.log("Error while establishing connection :("));

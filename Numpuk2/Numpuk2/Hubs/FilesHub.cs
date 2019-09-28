@@ -7,18 +7,20 @@ namespace Numpuk2.Hubs
 {
     public class FilesHub : Hub
     {
-        public async Task SendFiles(File[] filePaths)
+        public async Task SendDirectory(string directory)
         {
             await Clients.All.SendAsync("FilesAccepted", "Pliki w trakcie procesowania...");
             var reader = new ExaminationReader.ExaminationReader();
 
+            string[] filePaths = Directory.GetFiles(directory, "*.xlsx");
+
             int TOTAL_COUNT = filePaths.Length;
             int count = 0;
-            foreach (File file in filePaths)
+            foreach (string filePath in filePaths)
             {
                 var result = new Progress
                 {
-                    FileName = Path.GetFileName(file.Path),
+                    FileName = Path.GetFileName(filePath),
                     FileNumber = ++count,
                     TotalCount = TOTAL_COUNT,
                     Error = null
@@ -26,7 +28,7 @@ namespace Numpuk2.Hubs
 
                 try
                 {
-                    var examination = reader.Read(file.Path);
+                    var examination = reader.Read(filePath);
                 }
                 catch (System.Exception)
                 {
@@ -38,11 +40,6 @@ namespace Numpuk2.Hubs
             }
             await Clients.All.SendAsync("AllFilesDone");
         }
-    }
-
-    public class File
-    {
-        public string Path { get; set; }
     }
 
     public class Progress
