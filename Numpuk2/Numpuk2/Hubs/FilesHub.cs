@@ -7,8 +7,9 @@ namespace Numpuk2.Hubs
 {
     public class FilesHub : Hub
     {
-        public async Task SendDirectory(string directory)
+        public async Task SendDirectory(UploadModel model)
         {
+            string directory = model.Directory;
             await Clients.All.SendAsync("FilesAccepted", "Pliki w trakcie procesowania...");
             var reader = new ExaminationReader.ExaminationReader();
 
@@ -40,6 +41,12 @@ namespace Numpuk2.Hubs
             }
             await Clients.All.SendAsync("AllFilesDone");
         }
+    }
+
+    public class UploadModel
+    {
+        public string Directory { get; set; }
+        public string Password { get; set; }
     }
 
     public class Progress
