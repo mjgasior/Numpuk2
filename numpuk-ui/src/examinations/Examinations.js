@@ -6,12 +6,13 @@ import { Filters } from "./filters/Filters";
 import { Header } from "./header/Header";
 
 export const Examinations = () => {
-  const { examinations, pagination } = useExaminations();
+  const { examinations, pagination, filters } = useExaminations();
   const [testTypes, setFamilies] = useTestTypes();
+  const { setGender } = filters;
   return (
     <>
       <Header {...pagination} values={examinations}/>
-      <Filters onTestTypeChanged={setFamilies} />
+      <Filters onTestTypeChanged={setFamilies} onGenderChanged={setGender} />
       <ExaminationsTable testTypes={testTypes} data={examinations.results} />
     </>
   );

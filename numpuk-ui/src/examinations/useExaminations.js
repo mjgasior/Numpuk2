@@ -4,6 +4,7 @@ import { AccessContext } from "../access/AccessContext";
 export const useExaminations = () => {
   const [page, setPageInternal] = useState(1);
   const [count, setCountInternal] = useState(25);
+  const [gender, setGenderInternal] = useState(null);
 
   const password = useContext(AccessContext);
   const [examinations, setExaminations] = useState({
@@ -12,7 +13,12 @@ export const useExaminations = () => {
   });
 
   useEffect(() => {
-    const url = `/values/examinations?password=${password}&page=${page}&count=${count}`;
+    let url = `/values/examinations?password=${password}&page=${page}&count=${count}`;
+
+    if (gender) {
+      url += `&gender=${gender}`;
+    }
+
     fetch(url)
       .then(resp => resp.json())
       .then(data => setExaminations(data));
@@ -47,7 +53,7 @@ export const useExaminations = () => {
         }
       });
   }, [page, gender, ph, consistency, isSavePages, count]);*/
-  }, [password, page, setPageInternal, count, setCountInternal]);
+  }, [password, page, count, gender]);
 
   const resetPages = () => {
     setPageInternal(1);
@@ -65,6 +71,12 @@ export const useExaminations = () => {
       setCount: c => {
         resetPages();
         setCountInternal(c);
+      }
+    },
+    filters: {
+      setGender: g => {
+        resetPages();
+        setGenderInternal(g);
       }
     }
   };

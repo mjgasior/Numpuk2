@@ -18,18 +18,18 @@ namespace Numpuk2.Queries
             _context = new NumpukContext(password, port);
         }
 
-        public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, int? gender, double[] ph, Consistency[] consistency)
+        public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, Gender? gender, double[] ph, Consistency[] consistency)
         {
             double minPh = ph.Length < 2 ? 0 : ph[0];
             double maxPh = ph.Length < 2 ? 14 : ph[1];
 
             IQueryable<Examination> examinationsSet = _context.Examinations.Where(x => x.PhValue != null && x.PhValue >= minPh && x.PhValue <= maxPh);
 
-            /*if (gender != null)
+            if (gender != null)
             {
-                examinationsSet = examinationsSet.Where(x => x.Client.Gender == (Gender)gender);
+                examinationsSet = examinationsSet.Where(x => x.Client.Gender == gender);
             }
-
+            /*
             if (consistency.Length > 0)
             {
                 examinationsSet = examinationsSet.Where(x => consistency.Any(y => y == (Consistency)x.Consistency));
