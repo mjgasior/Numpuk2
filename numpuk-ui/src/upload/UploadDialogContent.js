@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import { Uploading } from "./Uploading";
-import { PasswordBox } from "./PasswordBox";
+import { AccessContext } from "../access/AccessContext";
 
 const Container = styled.div`
   flex-grow: 1;
@@ -18,9 +18,9 @@ const SecondRow = styled.div`
 
 export const UploadDialogContent = ({ onDone }) => {
   const [directory, setDirectory] = useState();
-  const [password, setPassword] = useState();
   const [isUploading, setIsUploading] = useState(false);
-
+  const password = useContext(AccessContext);
+  
   return (
     <Container>
       {isUploading ? (
@@ -42,7 +42,6 @@ export const UploadDialogContent = ({ onDone }) => {
             }}
           />
           <SecondRow>
-            <PasswordBox password={password} setPassword={setPassword} />
             <Button
               variant="contained"
               color="primary"

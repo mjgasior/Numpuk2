@@ -16,9 +16,15 @@ namespace Numpuk2.Controllers
     public class ValuesController : ControllerBase
     {
         [HttpGet]
-        public PagedResult<Examination> Get()
+        public string Get()
         {
-            var service = new ExaminationService("", "5433");
+            return "Server ready";
+        }
+
+        [HttpGet("examinations")]
+        public PagedResult<Examination> GetExaminations([FromQuery] string password)
+        {
+            var service = new ExaminationService(password, "5433");
             var ph = new double[] { 0.0, 14.0 };
             var consistency = new Consistency[] { Consistency.HALF_LIQUID, Consistency.LIQUID, Consistency.RIGID };
             var examinations = service.GetAllExaminations(1, 20, null, ph, consistency);

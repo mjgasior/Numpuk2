@@ -1,19 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { UploadDialog } from "./upload/UploadDialog";
+import { AccessContext } from "./access/AccessContext";
+import { AccessView } from "./access/AccessView";
+import styled from "styled-components";
+
+const AppContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 function App() {
-  useEffect(() => {
-    fetch("weatherforecast")
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data);
-      });
-  }, []);
+  const [password, setPassword] = useState("");
+  const [hasPassword, setHasPassword] = useState("");
 
   return (
-    <div>
-      <UploadDialog />
-    </div>
+    <AppContainer>
+      {hasPassword ? (
+        <AccessContext.Provider value={password}>
+          <UploadDialog />
+        </AccessContext.Provider>
+      ) : (
+        <AccessView
+          onPasswordSet={newPassword => {
+            setPassword(newPassword);
+            setHasPassword(true);
+          }}
+        />
+      )}
+    </AppContainer>
   );
 }
 
