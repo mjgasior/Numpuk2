@@ -49,7 +49,6 @@ namespace Numpuk2
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chatHub");
                 endpoints.MapHub<FilesHub>("/filesHub");
             });
         }

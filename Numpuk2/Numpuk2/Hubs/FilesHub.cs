@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,9 +9,8 @@ namespace Numpuk2.Hubs
     {
         public async Task SendFiles(File[] filePaths)
         {
-            Console.Write(filePaths);
             await Clients.All.SendAsync("FilesAccepted", "Pliki w trakcie procesowania...");
-            Thread.Sleep(5000);
+            var reader = new ExaminationReader.ExaminationReader();
 
             int TOTAL_COUNT = filePaths.Length;
             int count = 0;
@@ -22,10 +20,21 @@ namespace Numpuk2.Hubs
                 {
                     FileName = Path.GetFileName(file.Path),
                     FileNumber = ++count,
-                    TotalCount = TOTAL_COUNT
+                    TotalCount = TOTAL_COUNT,
+                    Error = null
                 };
+
+                try
+                {
+                    var examination = reader.Read(file.Path);
+                }
+                catch (System.Exception)
+                {
+                    result.FileName += " UWAGA BŁĄD";
+                    result.Error = "Napotkano problem!";   
+                }
                 await Clients.All.SendAsync("FileProcessed", result);
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
             }
             await Clients.All.SendAsync("AllFilesDone");
         }
@@ -41,5 +50,6 @@ namespace Numpuk2.Hubs
         public int FileNumber { get; set; }
         public int TotalCount { get; set; }
         public string FileName { get; set; }
+        public string Error { get; set; }
     }
 }

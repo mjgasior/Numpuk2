@@ -1,36 +1,27 @@
-﻿using System;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Numpuk2.ExaminationReader.Utils
 {
     public static class Hash
     {
-        public static string Generate(string s)
+        public static string Generate(string source)
         {
-            return CreateMD5(s);
+            using (MD5 md5Hash = MD5.Create())
+            {
+                return GetMd5Hash(md5Hash, source);
+            }
         }
 
-        private static string CreateMD5(string s)
+        static string GetMd5Hash(MD5 md5Hash, string input)
         {
-            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
             {
-                var encoding = Encoding.ASCII;
-                var data = encoding.GetBytes(s);
-
-                Span<byte> hashBytes = stackalloc byte[16];
-                md5.TryComputeHash(data, hashBytes, out int written);
-                if (written != hashBytes.Length)
-                {
-                    throw new OverflowException();
-                }
-
-                Span<char> stringBuffer = stackalloc char[32];
-                for (int i = 0; i < hashBytes.Length; i++)
-                {
-                    hashBytes[i].TryFormat(stringBuffer.Slice(2 * i), out _, "x2");
-                }
-                return new string(stringBuffer);
+                sBuilder.Append(data[i].ToString("x2"));
             }
+            return sBuilder.ToString();
         }
     }
 }

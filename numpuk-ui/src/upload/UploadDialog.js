@@ -34,7 +34,19 @@ export const UploadDialog = () => {
   const classes = useStyles();
 
   const onDrop = useCallback(acceptedFiles => {
-    setFiles(acceptedFiles);
+    function readURL(file) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        console.log(e);
+        console.log(e.target.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    acceptedFiles.map(x => readURL(x));
+    // setFiles(acceptedFiles);
   }, []);
 
   function hasNoFiles() {
