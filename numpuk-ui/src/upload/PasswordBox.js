@@ -15,6 +15,7 @@ export const PasswordBox = ({ password, setPassword }) => {
       type={isPasswordVisible ? "text" : "password"}
       label="Password"
       value={password}
+      style={{ margin: 8 }}
       onChange={event => setPassword(event.target.value)}
       InputProps={{
         endAdornment: (

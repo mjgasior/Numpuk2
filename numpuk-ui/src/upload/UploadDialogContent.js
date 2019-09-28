@@ -7,6 +7,13 @@ import { PasswordBox } from "./PasswordBox";
 
 const Container = styled.div`
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const SecondRow = styled.div`
+  flex-grow: 1;
+  display: flex;
 `;
 
 export const UploadDialogContent = ({ onDone }) => {
@@ -34,14 +41,17 @@ export const UploadDialogContent = ({ onDone }) => {
               shrink: true
             }}
           />
-          <PasswordBox password={password} setPassword={setPassword} />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setIsUploading(true)}
-          >
-            Rozpocznij przetwarzanie
-          </Button>
+          <SecondRow>
+            <PasswordBox password={password} setPassword={setPassword} />
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ margin: 8 }}
+              onClick={() => setIsUploading(true)}
+            >
+              Rozpocznij przetwarzanie
+            </Button>
+          </SecondRow>
         </>
       )}
     </Container>

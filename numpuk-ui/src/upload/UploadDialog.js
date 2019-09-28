@@ -7,29 +7,31 @@ import { UploadButton } from "./UploadButton";
 import { UploadDialogContent } from "./UploadDialogContent";
 
 export const UploadDialog = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClickOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   return (
     <div>
       <UploadButton onClick={handleClickOpen} />
-      <Dialog
-        fullWidth={true}
-        maxWidth="lg"
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          Dodawanie badań do bazy
-        </DialogTitle>
-        <DialogContent>
-          <UploadDialogContent onDone={() => setOpen(false)} />
-        </DialogContent>
-      </Dialog>
+      {isOpen && (
+        <Dialog
+          fullWidth={true}
+          maxWidth="lg"
+          open={isOpen}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Dodawanie badań do bazy
+          </DialogTitle>
+          <DialogContent>
+            <UploadDialogContent onDone={() => setIsOpen(false)} />
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };

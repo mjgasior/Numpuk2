@@ -12,6 +12,11 @@ namespace Numpuk2.Data
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Result> Results { get; set; }
 
+        public NumpukContext()
+        {
+
+        }
+
         public NumpukContext(string password, string port)
         {
             _password = password;

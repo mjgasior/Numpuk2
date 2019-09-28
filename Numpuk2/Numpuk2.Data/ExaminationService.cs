@@ -24,7 +24,6 @@ namespace Numpuk2.Data
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                Console.ReadLine();
                 throw;
             }
             
