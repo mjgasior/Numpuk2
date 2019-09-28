@@ -66,7 +66,7 @@ namespace Numpuk2.Utils
             var elementsToFix = new Dictionary<string, double>();
             foreach (KeyValuePair<string, double> result in results)
             {
-                if (!TestTypes.IsValidName(result.Key))
+                if (!TestTypesValidator.IsValidName(result.Key))
                 {
                     elementsToFix.Add(result.Key, result.Value);
                 }
@@ -74,10 +74,10 @@ namespace Numpuk2.Utils
 
             foreach (KeyValuePair<string, double> brokenResult in elementsToFix)
             {
-                string fixedName = TestTypes.TryFix(brokenResult.Key);
+                string fixedName = TestTypesValidator.TryFix(brokenResult.Key);
                 results.Remove(brokenResult.Key);
 
-                if (TestTypes.IsValidName(fixedName))
+                if (TestTypesValidator.IsValidName(fixedName))
                 {
                     results.Add(fixedName, brokenResult.Value);
                 }

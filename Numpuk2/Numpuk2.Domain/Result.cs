@@ -15,6 +15,12 @@ namespace Numpuk2.Domain
 
         }
 
+        public Result(string name, double value)
+        {
+            this.Name = name;
+            this.Value = value;
+        }
+
         public Result(KeyValuePair<string, double> element)
         {
             this.Name = element.Key;
