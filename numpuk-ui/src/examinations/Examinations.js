@@ -1,12 +1,16 @@
-import React from 'react';
-import { useExaminations } from './useExaminations';
-import { useTestTypes } from './useTestTypes';
-import { ExaminationsTable } from './table/ExaminationsTable';
+import React from "react";
+import { useExaminations } from "./useExaminations";
+import { useTestTypes } from "./useTestTypes";
+import { ExaminationsTable } from "./table/ExaminationsTable";
+import { Filters } from "./filters/Filters";
 
 export const Examinations = () => {
   const val = useExaminations();
   const [testTypes, setFamilies] = useTestTypes();
   return (
-    <ExaminationsTable testTypes={testTypes} data={val.results} />
+    <>
+      <Filters />
+      <ExaminationsTable testTypes={testTypes} data={val.results} />
+    </>
   );
 };
