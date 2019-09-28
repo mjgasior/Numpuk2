@@ -18,11 +18,12 @@ namespace Numpuk2.Controllers
         }
 
         [HttpGet("examinations")]
-        public PagedResult<ExaminationResponse> GetExaminations([FromQuery] string password, [FromQuery] int page, [FromQuery] int count, [FromQuery] Gender? gender)
+        public PagedResult<ExaminationResponse> GetExaminations([FromQuery] string password, 
+            [FromQuery] int page, [FromQuery] int count, 
+            [FromQuery] Gender? gender, [FromQuery] Consistency[] consistency,
+            [FromQuery] double[] ph)
         {
             var service = new ExaminationService(password, "5433");
-            var ph = new double[] { 0.0, 14.0 };
-            var consistency = new Consistency[] { Consistency.HALF_LIQUID, Consistency.LIQUID, Consistency.RIGID };
             var examinations = service.GetAllExaminations(page, count, gender, ph, consistency);
 
             return examinations;

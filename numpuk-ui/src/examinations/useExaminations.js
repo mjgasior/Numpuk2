@@ -1,10 +1,14 @@
 import { useEffect, useContext, useState } from "react";
 import { AccessContext } from "../access/AccessContext";
+import { transformConsistency } from "./table/helpers";
 
 export const useExaminations = () => {
   const [page, setPageInternal] = useState(1);
   const [count, setCountInternal] = useState(25);
+
+  const [ph, setPhInternal] = useState([0, 14]);
   const [gender, setGenderInternal] = useState(null);
+  const [consistency, setConsistencyInternal] = useState({});
 
   const password = useContext(AccessContext);
   const [examinations, setExaminations] = useState({
@@ -14,46 +18,21 @@ export const useExaminations = () => {
 
   useEffect(() => {
     let url = `/values/examinations?password=${password}&page=${page}&count=${count}`;
+    url += `&ph=${ph[0]}&ph=${ph[1]}`;
 
     if (gender) {
       url += `&gender=${gender}`;
+    }
+
+    const consistencyArray = transformConsistency(consistency);
+    if (consistencyArray.length > 0) {
+      consistencyArray.map(c => (url += `&consistency=${c}`));
     }
 
     fetch(url)
       .then(resp => resp.json())
       .then(data => setExaminations(data));
-
-    /*let url = `/api/values?page=${page}&count=${count}&ph=${ph[0]}&ph=${ph[1]}`;
-    const consistencyArray = transformConsistency(consistency);
-
-    if (consistencyArray.length > 0) {
-      consistencyArray.map(c => (url += `&consistency=${c}`));
-    }
-
-    if (gender) {
-      url += `&gender=${gender}`;
-    }
-
-    fetch(url)
-      .then(resp => resp.json())
-      .then(data => {
-        if (isSavePages) {
-          setValues(prevState => {
-            if (data.currentPage > prevState.currentPage) {
-              const a = prevState.results;
-              const b = data.results;
-              data.results = [...a, ...b];
-            } else if (data.currentPage < prevState.currentPage) {
-              alert("Klikanie w poprzednią stronę w tym trybie nie działa!");
-            }
-            return data;
-          });
-        } else {
-          setValues(data);
-        }
-      });
-  }, [page, gender, ph, consistency, isSavePages, count]);*/
-  }, [password, page, count, gender]);
+  }, [password, page, count, gender, consistency, ph]);
 
   const resetPages = () => {
     setPageInternal(1);
@@ -77,6 +56,14 @@ export const useExaminations = () => {
       setGender: g => {
         resetPages();
         setGenderInternal(g);
+      },
+      setConsistency: c => {
+        resetPages();
+        setConsistencyInternal(c);
+      },
+      setPh: p => {
+        resetPages();
+        setPhInternal(p);
       }
     }
   };
