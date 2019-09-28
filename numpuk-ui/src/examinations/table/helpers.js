@@ -1,0 +1,72 @@
+export const getGender = enumValue => {
+  switch (enumValue) {
+    case 1:
+      return "Mężczyzna";
+    case 2:
+      return "Kobieta";
+    default:
+      return "Brak";
+  }
+};
+
+export const getBirthdate = birthdate => {
+  const date = new Date(birthdate);
+  return date.toLocaleDateString();
+};
+
+export const getLabel = threeStateValue => {
+  if (threeStateValue === false) {
+    return "Nie";
+  } else if (threeStateValue === true) {
+    return "Tak";
+  } else {
+    return "";
+  }
+};
+
+export const getValue = (name, results) => {
+  for (let i = 0; i < results.length; i++) {
+    if (results[i].name === name) {
+      return results[i].value;
+    }
+  }
+};
+
+export const transformConsistency = ({
+  liquid,
+  halfLiquid,
+  rigid,
+  unknown
+}) => {
+  const array = [];
+  if (liquid) {
+    array.push("liquid");
+  }
+
+  if (halfLiquid) {
+    array.push("half_Liquid");
+  }
+
+  if (rigid) {
+    array.push("rigid");
+  }
+
+  if (unknown) {
+    array.push("unknown");
+  }
+
+  return array;
+};
+
+export const getConsistencyLabel = enumValue => {
+  switch (enumValue) {
+    case 0:
+      return "Płynna";
+    case 1:
+      return "Półpłynna";
+    case 2:
+      return "Stała";
+    default:
+      return "Niezidentyfikowana";
+  }
+};
