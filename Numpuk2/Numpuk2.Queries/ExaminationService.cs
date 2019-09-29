@@ -29,11 +29,12 @@ namespace Numpuk2.Queries
             {
                 examinationsSet = examinationsSet.Where(x => x.Client.Gender == gender);
             }
-            
-            /*if (consistency.Length > 0)
+
+            List<int> consistencyNumbers = consistency.Select(item => (int)item).ToList();
+            if (consistencyNumbers.Count > 0)
             {
-                examinationsSet = examinationsSet.Where(x => consistency.AsEnumerable().Any(y => y == x.Consistency));
-            }*/
+                examinationsSet = examinationsSet.Where(x => consistencyNumbers.Any(y => y == (int)x.Consistency));
+            }
 
             var examinations = examinationsSet.Include(x => x.Client)
                 .Include(x => x.Results)
