@@ -27,6 +27,7 @@ export const Header = ({
   return (
     <Container>
       <Pager
+        isPreviousButtonHidden={isSavePages}
         page={page}
         pageCount={values.pageCount}
         totalCount={values.rowCount}
@@ -34,6 +35,7 @@ export const Header = ({
         setPage={setPage}
       />
       <Select
+        disabled={isSavePages}
         value={count}
         onChange={event => setCount(event.target.value)}
         inputProps={{

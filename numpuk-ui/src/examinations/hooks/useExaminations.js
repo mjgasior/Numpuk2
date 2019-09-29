@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
-import { AccessContext } from "../access/AccessContext";
-import { transformConsistency } from "./table/helpers";
+import { AccessContext } from "../../access/AccessContext";
+import { transformConsistency } from "./../table/helpers";
 
 export const useExaminations = () => {
   const [page, setPageInternal] = useState(1);

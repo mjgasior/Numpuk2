@@ -11,7 +11,14 @@ const Text = styled.div`
   padding: 6px 18px;
 `;
 
-export const Pager = ({ page, pageCount, totalCount, currentPage, setPage }) => {
+export const Pager = ({
+  page,
+  pageCount,
+  totalCount,
+  currentPage,
+  setPage,
+  isPreviousButtonHidden
+}) => {
   const hasPrevious = page > 1;
   const hasNext = page < pageCount;
   const isLoading = page !== currentPage;
@@ -20,13 +27,15 @@ export const Pager = ({ page, pageCount, totalCount, currentPage, setPage }) => 
 
   return (
     <Container>
-      <Button
-        disabled={isLoading}
-        style={previousButtonStyle}
-        onClick={() => setPage(page - 1)}
-      >
-        Poprzednia strona
-      </Button>
+      {!isPreviousButtonHidden && (
+        <Button
+          disabled={isLoading}
+          style={previousButtonStyle}
+          onClick={() => setPage(page - 1)}
+        >
+          Poprzednia strona
+        </Button>
+      )}
 
       {totalCount && (
         <Text>

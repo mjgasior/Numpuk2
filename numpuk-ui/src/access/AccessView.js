@@ -3,7 +3,7 @@ import { PasswordBox } from "./PasswordBox";
 import Button from "@material-ui/core/Button";
 
 export const AccessView = ({ onPasswordSet }) => {
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("Ralph1989!");
 
   useEffect(() => {
     const handler = ({ key }) => {
