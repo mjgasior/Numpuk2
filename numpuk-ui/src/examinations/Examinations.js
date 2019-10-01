@@ -9,7 +9,13 @@ import { useDataBuffer } from "./hooks/useDataBuffer";
 export const Examinations = () => {
   const { examinations, pagination, filters } = useExaminations();
   const [testTypes, setFamilies] = useTestTypes();
-  const { setGender, setConsistency, setPh } = filters;
+  const {
+    setGender,
+    setConsistency,
+    setPh,
+    setFaecalibactriumPrausnitzii,
+    setAkkermansiaMuciniphila
+  } = filters;
 
   const { isSavePages, setIsSavePages, data } = useDataBuffer(examinations);
 
@@ -26,6 +32,8 @@ export const Examinations = () => {
         onGenderChanged={setGender}
         onConsistencyChanged={setConsistency}
         onPhChanged={setPh}
+        onFaecalibactriumPrausnitzii={setFaecalibactriumPrausnitzii}
+        onAkkermansiaMuciniphila={setAkkermansiaMuciniphila}
       />
       <ExaminationsTable testTypes={testTypes} data={examinations.results} />
     </>

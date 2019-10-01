@@ -10,7 +10,8 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { PerformedTestPicker } from "./PerformedTestPicker";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,7 +33,9 @@ export const Filters = ({
   onGenderChanged,
   onPhChanged,
   onConsistencyChanged,
-  onTestTypeChanged
+  onTestTypeChanged,
+  onAkkermansiaMuciniphila,
+  onFaecalibactriumPrausnitzii
 }) => {
   const classes = useStyles();
 
@@ -51,6 +54,8 @@ export const Filters = ({
             <TestTypesPicker onTestTypeChanged={onTestTypeChanged} />
             <GenderPicker onGenderChanged={onGenderChanged} />
             <ConsistencyPicker onConsistencyChanged={onConsistencyChanged} />
+            <PerformedTestPicker onTestChanged={onAkkermansiaMuciniphila} testName={"Akkermansia Muciniphila"} />
+            <PerformedTestPicker onTestChanged={onFaecalibactriumPrausnitzii} testName={"Faecalibactrium Prausnitzii"} />
             <PhSlider onPhChanged={onPhChanged} />
           </Container>
         </ExpansionPanelDetails>

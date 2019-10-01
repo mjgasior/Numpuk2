@@ -9,11 +9,6 @@ export const getGender = enumValue => {
   }
 };
 
-export const getBirthdate = birthdate => {
-  const date = new Date(birthdate);
-  return date.toLocaleDateString();
-};
-
 export const getLabel = threeStateValue => {
   if (threeStateValue === false) {
     return "Nie";
@@ -30,6 +25,23 @@ export const getValue = (name, results) => {
       return results[i].value;
     }
   }
+};
+
+export const transformPerformedTest = ({ positive, negative, not_performed }) => {
+  const array = [];
+  if (positive) {
+    array.push("POSITIVE");
+  }
+
+  if (negative) {
+    array.push("NEGATIVE");
+  }
+
+  if (not_performed) {
+    array.push("NOT_PERFORMED");
+  }
+
+  return array;
 };
 
 export const transformConsistency = ({

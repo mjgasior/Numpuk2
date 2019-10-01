@@ -9,7 +9,7 @@ namespace Numpuk2.Hubs
         public async Task SendDirectory(UploadModel model)
         {
             await Clients.All.SendAsync("FilesAccepted", "Pliki w trakcie procesowania...");
-            string[] filePaths = Utils.Directory.GetAllFileNames(model.Directory);
+            string[] filePaths = Directory.GetAllFileNames(model.Directory);
 
             var parser = new Parser(filePaths, model.Password, "5433", new Logger());
             await parser.Run(Clients.All);

@@ -7,11 +7,15 @@ namespace Numpuk2.ExaminationReader.ReadModels
     {
         private ISheet _sheet;
 
-        public string Name { get; private set; }
-        public string Birthday { get; private set; }
-        public string Gender { get; private set; }
-        public string Pesel { get; private set; }
-        public string Address { get; private set; }
+        public string Name { get;  }
+        public string Birthday { get;  }
+        public string Gender { get; }
+        public string Pesel { get; }
+        public string Address { get; }
+
+        public string MaterialFetchDate { get; }
+        public string MaterialRegistrationDate { get; }
+        public string TestEndDate { get; }
 
         public ExaminationPatient(ISheet sheet)
         {
@@ -26,21 +30,25 @@ namespace Numpuk2.ExaminationReader.ReadModels
             }
 
             this.Address = GetStringCell(7, 3);
-            this.Birthday = GetDate();            
+            this.Birthday = GetDate(4, 3);
+
+            this.MaterialFetchDate = GetDate(9, 3);
+            this.MaterialRegistrationDate = GetDate(10, 3);
+            this.TestEndDate = GetDate(11, 3);
         }
 
-        private string GetDate()
+        private string GetDate(int row, int cell)
         {
-            var cell = GetCell(4, 3);
-            if (cell.CellType == CellType.String)
+            var cellData = GetCell(row, cell);
+            if (cellData.CellType == CellType.String)
             {
-                return cell.StringCellValue;
+                return cellData.StringCellValue;
             }
             else
             {
-                return DateUtil.IsCellDateFormatted(cell)
-                        ? cell.DateCellValue.ToString()
-                        : cell.NumericCellValue.ToString();
+                return DateUtil.IsCellDateFormatted(cellData)
+                        ? cellData.DateCellValue.ToString()
+                        : cellData.NumericCellValue.ToString();
             }
         }
 

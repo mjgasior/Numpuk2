@@ -24,9 +24,6 @@ namespace Numpuk2.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("timestamp without time zone");
 
@@ -57,6 +54,9 @@ namespace Numpuk2.Data.Migrations
 
                     b.Property<bool?>("HasFaecalibactriumPrausnitzii")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("MaterialRegistrationDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<double?>("PhValue")
                         .HasColumnType("double precision");

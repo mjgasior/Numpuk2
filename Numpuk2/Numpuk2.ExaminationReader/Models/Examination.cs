@@ -1,4 +1,5 @@
 ﻿using Numpuk2.ExaminationReader.ReadModels;
+using System;
 using System.Collections.Generic;
 
 namespace Numpuk2.ExaminationReader.Models
@@ -16,5 +17,6 @@ namespace Numpuk2.ExaminationReader.Models
         public Patient Owner { get; internal set; }
         public double? Ph { get; internal set; }
         public Consistency StoolConsistency { get; internal set; }
+        public DateTime MaterialRegistrationDate { get; internal set; }
     }
 }

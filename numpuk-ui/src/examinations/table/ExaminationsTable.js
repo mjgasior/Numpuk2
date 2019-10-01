@@ -10,7 +10,6 @@ import {
   getConsistencyLabel,
   getLabel,
   getValue,
-  getBirthdate,
   getGender
 } from "./helpers";
 import { DoubleScrollbar } from "./DoubleScrollbar";
@@ -47,7 +46,7 @@ export const ExaminationsTable = ({ data, testTypes }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Płeć</TableCell>
-                <TableCell align="right">Urodziny</TableCell>
+                <TableCell align="right">Wiek</TableCell>
                 <TableCell align="right">PH</TableCell>
                 <TableCell align="right">Konsystencja</TableCell>
                 <TableCell align="right">Ilość bakterii</TableCell>
@@ -77,7 +76,7 @@ export const ExaminationsTable = ({ data, testTypes }) => {
                       {getGender(client.gender)}
                     </TableCell>
                     <TableCell align="right">
-                      {getBirthdate(client.birthday)}
+                      {client.age}
                     </TableCell>
                     <TableCell align="right">{phValue}</TableCell>
                     <TableCell align="right">

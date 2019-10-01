@@ -1,4 +1,5 @@
 ﻿using Numpuk2.Domain.Parameters;
+using System;
 using System.Collections.Generic;
 
 namespace Numpuk2.Domain
@@ -15,5 +16,6 @@ namespace Numpuk2.Domain
         public bool? HasAkkermansiaMuciniphila { get; set; }
         public bool? HasFaecalibactriumPrausnitzii { get; set; }
         public double? GeneralNumberOfBacteria { get; set; }
+        public DateTime MaterialRegistrationDate { get; set; }
     }
 }

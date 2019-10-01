@@ -1,6 +1,9 @@
 import { useEffect, useContext, useState } from "react";
 import { AccessContext } from "../../access/AccessContext";
-import { transformConsistency } from "./../table/helpers";
+import {
+  transformConsistency,
+  transformPerformedTest
+} from "./../table/helpers";
 
 export const useExaminations = () => {
   const [page, setPageInternal] = useState(1);
@@ -9,6 +12,14 @@ export const useExaminations = () => {
   const [ph, setPhInternal] = useState([0, 14]);
   const [gender, setGenderInternal] = useState(null);
   const [consistency, setConsistencyInternal] = useState({});
+
+  const [
+    faecalibactriumPrausnitzii,
+    setFaecalibactriumPrausnitziiInternal
+  ] = useState({});
+  const [akkermansiaMuciniphila, setAkkermansiaMuciniphilaInternal] = useState(
+    {}
+  );
 
   const password = useContext(AccessContext);
   const [examinations, setExaminations] = useState({
@@ -29,10 +40,37 @@ export const useExaminations = () => {
       consistencyArray.map(c => (url += `&consistency=${c}`));
     }
 
+    const faecalibactriumPrausnitziiArray = transformPerformedTest(
+      faecalibactriumPrausnitzii
+    );
+    if (faecalibactriumPrausnitziiArray.length > 0) {
+      faecalibactriumPrausnitziiArray.map(
+        fp => (url += `&faecalibactriumPrausnitzii=${fp}`)
+      );
+    }
+
+    const akkermansiaMuciniphilaArray = transformPerformedTest(
+      akkermansiaMuciniphila
+    );
+    if (akkermansiaMuciniphilaArray.length > 0) {
+      akkermansiaMuciniphilaArray.map(
+        am => (url += `&akkermansiaMuciniphila=${am}`)
+      );
+    }
+
     fetch(url)
       .then(resp => resp.json())
       .then(data => setExaminations(data));
-  }, [password, page, count, gender, consistency, ph]);
+  }, [
+    password,
+    page,
+    count,
+    gender,
+    consistency,
+    ph,
+    faecalibactriumPrausnitzii,
+    akkermansiaMuciniphila
+  ]);
 
   const resetPages = () => {
     setPageInternal(1);
@@ -64,6 +102,14 @@ export const useExaminations = () => {
       setPh: p => {
         resetPages();
         setPhInternal(p);
+      },
+      setFaecalibactriumPrausnitzii: fp => {
+        resetPages();
+        setFaecalibactriumPrausnitziiInternal(fp);
+      },
+      setAkkermansiaMuciniphila: am => {
+        resetPages();
+        setAkkermansiaMuciniphilaInternal(am);
       }
     }
   };

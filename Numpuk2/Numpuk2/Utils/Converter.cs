@@ -6,12 +6,11 @@ namespace Numpuk2.Utils
 {
     public static class Converter
     {
-        public static Examination PrepareEntity(Numpuk2.ExaminationReader.Models.Examination readerExamination)
+        public static Examination PrepareEntity(ExaminationReader.Models.Examination readerExamination)
         {
             Client client = new Client
             {
                 Id = readerExamination.Owner.Id,
-                Address = readerExamination.Owner.Address,
                 Birthday = readerExamination.Owner.Birthday,
                 Gender = (Gender)readerExamination.Owner.Gender
             };
@@ -26,7 +25,8 @@ namespace Numpuk2.Utils
                 Client = client,
                 HasAkkermansiaMuciniphila = readerExamination.HasAkkermansiaMuciniphila,
                 HasFaecalibactriumPrausnitzii = readerExamination.HasFaecalibactriumPrausnitzii,
-                GeneralNumberOfBacteria = readerExamination.GeneralNumberOfBacteria
+                GeneralNumberOfBacteria = readerExamination.GeneralNumberOfBacteria,
+                MaterialRegistrationDate = readerExamination.MaterialRegistrationDate
             };
         }
     }

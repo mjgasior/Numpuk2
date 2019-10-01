@@ -10,7 +10,7 @@ using Numpuk2.Data;
 namespace Numpuk2.Data.Migrations
 {
     [DbContext(typeof(NumpukContext))]
-    [Migration("20190928123126_InitialCreate")]
+    [Migration("20190929205022_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,9 +24,6 @@ namespace Numpuk2.Data.Migrations
             modelBuilder.Entity("Numpuk2.Domain.Client", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Address")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Birthday")
@@ -59,6 +56,9 @@ namespace Numpuk2.Data.Migrations
 
                     b.Property<bool?>("HasFaecalibactriumPrausnitzii")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("MaterialRegistrationDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<double?>("PhValue")
                         .HasColumnType("double precision");

@@ -4,6 +4,7 @@ using Numpuk2.Domain;
 using Numpuk2.Domain.Parameters;
 using Numpuk2.Queries.Models;
 using Numpuk2.Queries.Pagination;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +19,8 @@ namespace Numpuk2.Queries
             _context = new NumpukContext(password, port);
         }
 
-        public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, Gender? gender, double[] ph, Consistency[] consistency)
+        public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, Gender? gender, double[] ph, Consistency[] consistency, 
+            ExaminationStatus[] akkermansiaMuciniphila, ExaminationStatus[] faecalibactriumPrausnitzii)
         {
             double minPh = ph.Length < 2 ? 0 : ph[0];
             double maxPh = ph.Length < 2 ? 14 : ph[1];
@@ -31,10 +33,16 @@ namespace Numpuk2.Queries
             }
 
             List<int> consistencyNumbers = consistency.Select(item => (int)item).ToList();
-            if (consistencyNumbers.Count > 0)
+            if (consistencyNumbers.Count > 0 && consistencyNumbers.Count < 4)
             {
                 examinationsSet = examinationsSet.Where(x => consistencyNumbers.Any(y => y == (int)x.Consistency));
             }
+
+            /*List<int> akkermansiaMuciniphilaNumbers = akkermansiaMuciniphila.Select(item => (int)item).ToList();
+            if (akkermansiaMuciniphilaNumbers.Count > 0 && akkermansiaMuciniphilaNumbers.Count < 3)
+            {
+                examinationsSet = examinationsSet.Where(x => akkermansiaMuciniphilaNumbers.Any(y => y == (int)x.));
+            }*/
 
             var examinations = examinationsSet.Include(x => x.Client)
                 .Include(x => x.Results)
@@ -48,8 +56,7 @@ namespace Numpuk2.Queries
                 {
                     Client = new ClientResponse
                     {
-                        Address = examination.Client.Address,
-                        Birthday = examination.Client.Birthday,
+                        Age = GetClientAge(examination),
                         Gender = examination.Client.Gender,
                         Id = examination.Client.Id
                     },
@@ -74,6 +81,11 @@ namespace Numpuk2.Queries
             };
 
             return result;
+        }
+
+        private int GetClientAge(Examination examination)
+        {
+            return (int)((examination.MaterialRegistrationDate - examination.Client.Birthday).TotalDays / 365);
         }
     }
 }

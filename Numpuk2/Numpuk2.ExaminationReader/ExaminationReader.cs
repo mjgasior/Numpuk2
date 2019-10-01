@@ -22,7 +22,7 @@ namespace Numpuk2.ExaminationReader
 
             ISheet sheet = xssfBook.GetSheet(xssfBook.GetSheetName(0));
 
-            Models.Patient client = ReadClient(sheet);
+            Patient client = ReadClient(sheet);
 
             ExaminationType type = sheet.GetExaminationType();
             if (type == ExaminationType.UNKNOWN)
@@ -39,7 +39,7 @@ namespace Numpuk2.ExaminationReader
             }
         }
 
-        private Examination CreateExamination(ISheet sheet, ExaminationType type, Models.Patient client)
+        private Examination CreateExamination(ISheet sheet, ExaminationType type, Patient client)
         {
             var reader = new ExtendedExaminationReader(sheet);
             var examination = new Examination
@@ -50,7 +50,8 @@ namespace Numpuk2.ExaminationReader
                 Ph = reader.Ph,
                 StoolConsistency = Converter.SetConsistency(reader.StoolConsistency),
                 GeneralNumberOfBacteria = reader.GeneralNumberOfBacteria,
-                Results = reader.Results
+                Results = reader.Results,
+                MaterialRegistrationDate = client.MaterialRegistrationDate
             };
 
             if (type == ExaminationType.EXTENDED)
@@ -108,7 +109,8 @@ namespace Numpuk2.ExaminationReader
                 Birthday = birthday,
                 Gender = Converter.SetGender(patient.Gender),
                 Id = Hash.Generate(patient.Pesel),
-                Address = patient.Address
+                Address = patient.Address,
+                MaterialRegistrationDate = DateTime.Parse(patient.MaterialRegistrationDate)
             };
             return client;
         }

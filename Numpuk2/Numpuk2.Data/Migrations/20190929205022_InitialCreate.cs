@@ -13,8 +13,7 @@ namespace Numpuk2.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     Birthday = table.Column<DateTime>(nullable: false),
-                    Gender = table.Column<int>(nullable: false),
-                    Address = table.Column<string>(nullable: true)
+                    Gender = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +31,8 @@ namespace Numpuk2.Data.Migrations
                     Consistency = table.Column<int>(nullable: false),
                     HasAkkermansiaMuciniphila = table.Column<bool>(nullable: true),
                     HasFaecalibactriumPrausnitzii = table.Column<bool>(nullable: true),
-                    GeneralNumberOfBacteria = table.Column<double>(nullable: true)
+                    GeneralNumberOfBacteria = table.Column<double>(nullable: true),
+                    MaterialRegistrationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
