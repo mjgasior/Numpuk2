@@ -17,6 +17,21 @@ namespace Numpuk2.Queries
         public ExaminationService(string password, string port)
         {
             _context = new NumpukContext(password, port);
+            try
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Migrating data base...");
+                _context.Database.Migrate();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Migration successful!");
+                Console.ResetColor();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, Gender? gender, double[] ph, Consistency[] consistency, 
@@ -83,9 +98,10 @@ namespace Numpuk2.Queries
             return result;
         }
 
-        private int GetClientAge(Examination examination)
+        private double GetClientAge(Examination examination)
         {
-            return (int)((examination.MaterialRegistrationDate - examination.Client.Birthday).TotalDays / 365);
+            const double DAYS_IN_A_YEAR = 365.0d;
+            return (examination.MaterialRegistrationDate - examination.Client.Birthday).TotalDays / DAYS_IN_A_YEAR;
         }
     }
 }

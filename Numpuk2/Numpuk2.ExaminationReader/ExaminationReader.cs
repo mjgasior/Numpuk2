@@ -50,8 +50,7 @@ namespace Numpuk2.ExaminationReader
                 Ph = reader.Ph,
                 StoolConsistency = Converter.SetConsistency(reader.StoolConsistency),
                 GeneralNumberOfBacteria = reader.GeneralNumberOfBacteria,
-                Results = reader.Results,
-                MaterialRegistrationDate = client.MaterialRegistrationDate
+                Results = reader.Results
             };
 
             if (type == ExaminationType.EXTENDED)
@@ -104,13 +103,20 @@ namespace Numpuk2.ExaminationReader
                 birthday = pesel.GetBirthday();
             }
 
+            var materialRegistrationDate = DateTime.Parse(patient.MaterialRegistrationDate);
+            if (materialRegistrationDate == DateTime.MinValue)
+            {
+                throw new ArgumentException($"Material registration date is empty for {patient.Name}!");
+            }
+
             var client = new Patient
             {
                 Birthday = birthday,
                 Gender = Converter.SetGender(patient.Gender),
-                Id = Hash.Generate(patient.Pesel),
+                // Id = Hash.Generate(patient.Pesel),
+                Id = patient.Name,
                 Address = patient.Address,
-                MaterialRegistrationDate = DateTime.Parse(patient.MaterialRegistrationDate)
+                MaterialRegistrationDate = materialRegistrationDate
             };
             return client;
         }

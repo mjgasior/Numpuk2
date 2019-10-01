@@ -26,7 +26,7 @@ namespace Numpuk2.Utils
                 HasAkkermansiaMuciniphila = readerExamination.HasAkkermansiaMuciniphila,
                 HasFaecalibactriumPrausnitzii = readerExamination.HasFaecalibactriumPrausnitzii,
                 GeneralNumberOfBacteria = readerExamination.GeneralNumberOfBacteria,
-                MaterialRegistrationDate = readerExamination.MaterialRegistrationDate
+                MaterialRegistrationDate = readerExamination.Owner.MaterialRegistrationDate
             };
         }
     }

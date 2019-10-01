@@ -26,7 +26,6 @@ namespace Numpuk2.Data
                 Console.WriteLine(e);
                 throw;
             }
-            
         }
 
         public void AddExamination(Examination examination)
