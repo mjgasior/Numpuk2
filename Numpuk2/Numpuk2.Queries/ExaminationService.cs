@@ -34,13 +34,26 @@ namespace Numpuk2.Queries
             }
         }
 
-        public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, Gender? gender, double[] ph, Consistency[] consistency, 
+        public PagedResult<ExaminationResponse> GetAllExaminations(int page, int count, Gender? gender, double[] age, double[] ph, Consistency[] consistency, 
             ExaminationStatus[] akkermansiaMuciniphila, ExaminationStatus[] faecalibactriumPrausnitzii)
         {
+            IQueryable<Examination> examinationsSet = _context.Examinations;
+
             double minPh = ph.Length < 2 ? 0 : ph[0];
             double maxPh = ph.Length < 2 ? 14 : ph[1];
 
-            IQueryable<Examination> examinationsSet = _context.Examinations.Where(x => x.PhValue != null && x.PhValue >= minPh && x.PhValue <= maxPh);
+            if (minPh > 0 || maxPh < 14)
+            {
+                examinationsSet.Where(x => x.PhValue != null && x.PhValue >= minPh && x.PhValue <= maxPh);
+            }
+
+            double minAge = age.Length < 2 ? 0 : age[0];
+            double maxAge = age.Length < 2 ? 140 : age[1];
+
+            if (minAge > 0 || maxAge < 140)
+            {
+                examinationsSet.Where(x => IsInAge(x, minAge, maxAge));
+            }
 
             if (gender != null)
             {
@@ -102,6 +115,12 @@ namespace Numpuk2.Queries
             };
 
             return result;
+        }
+
+        private bool IsInAge(Examination x, double minAge, double maxAge)
+        {
+            double age = GetClientAge(x);
+            return age <= maxAge && age >= minAge;
         }
 
         private bool? SetItem(ExaminationStatus item)

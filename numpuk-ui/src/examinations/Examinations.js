@@ -10,6 +10,7 @@ export const Examinations = () => {
   const { examinations, pagination, filters } = useExaminations();
   const [testTypes, setFamilies] = useTestTypes();
   const {
+    setAge,
     setGender,
     setConsistency,
     setPh,
@@ -32,6 +33,7 @@ export const Examinations = () => {
         onGenderChanged={setGender}
         onConsistencyChanged={setConsistency}
         onPhChanged={setPh}
+        onAgeChanged={setAge}
         onFaecalibactriumPrausnitzii={setFaecalibactriumPrausnitzii}
         onAkkermansiaMuciniphila={setAkkermansiaMuciniphila}
       />

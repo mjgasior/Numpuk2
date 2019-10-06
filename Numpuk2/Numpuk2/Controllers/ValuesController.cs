@@ -19,14 +19,17 @@ namespace Numpuk2.Controllers
 
         [HttpGet("examinations")]
         public PagedResult<ExaminationResponse> GetExaminations([FromQuery] string password, 
-            [FromQuery] int page, [FromQuery] int count, 
-            [FromQuery] Gender? gender, [FromQuery] Consistency[] consistency,
+            [FromQuery] int page, 
+            [FromQuery] int count,
+            [FromQuery] double[] age,
+            [FromQuery] Gender? gender, 
+            [FromQuery] Consistency[] consistency,
             [FromQuery] double[] ph, 
             [FromQuery] ExaminationStatus[] akkermansiaMuciniphila,
             [FromQuery] ExaminationStatus[] faecalibactriumPrausnitzii)
         {
             var service = new ExaminationService(password, "5433");
-            var examinations = service.GetAllExaminations(page, count, gender, ph, consistency, akkermansiaMuciniphila, faecalibactriumPrausnitzii);
+            var examinations = service.GetAllExaminations(page, count, gender, age, ph, consistency, akkermansiaMuciniphila, faecalibactriumPrausnitzii);
 
             return examinations;
         }

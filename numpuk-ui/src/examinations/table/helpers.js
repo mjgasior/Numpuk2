@@ -2,7 +2,6 @@ export const getAge = age => {
   if (age < 1) {
     return age.toFixed(2);
   }
-  console.log(age);
   return Math.floor(age).toFixed(0);
 }
 

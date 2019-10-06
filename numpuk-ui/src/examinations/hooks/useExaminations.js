@@ -9,8 +9,9 @@ export const useExaminations = () => {
   const [page, setPageInternal] = useState(1);
   const [count, setCountInternal] = useState(25);
 
-  const [ph, setPhInternal] = useState([0, 14]);
+  const [age, setAgeInternal] = useState([0, 140]);
   const [gender, setGenderInternal] = useState(null);
+  const [ph, setPhInternal] = useState([0, 14]);
   const [consistency, setConsistencyInternal] = useState({});
 
   const [
@@ -30,6 +31,7 @@ export const useExaminations = () => {
   useEffect(() => {
     let url = `/values/examinations?password=${password}&page=${page}&count=${count}`;
     url += `&ph=${ph[0]}&ph=${ph[1]}`;
+    url += `&age=${age[0]}&age=${age[1]}`;
 
     if (gender) {
       url += `&gender=${gender}`;
@@ -65,6 +67,7 @@ export const useExaminations = () => {
     password,
     page,
     count,
+    age,
     gender,
     consistency,
     ph,
@@ -102,6 +105,10 @@ export const useExaminations = () => {
       setPh: p => {
         resetPages();
         setPhInternal(p);
+      },
+      setAge: p => {
+        resetPages();
+        setAgeInternal(p);
       },
       setFaecalibactriumPrausnitzii: fp => {
         resetPages();

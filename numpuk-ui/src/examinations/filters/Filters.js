@@ -1,9 +1,9 @@
 import React from "react";
-import { GenderPicker } from "./GenderPicker";
-import { PhSlider } from "./PhSlider";
+import { GenderPicker } from "./components/GenderPicker";
+import { PhSlider } from "./components/PhSlider";
 import styled from "styled-components";
-import { ConsistencyPicker } from "./ConsistencyPicker";
-import { TestTypesPicker } from "./TestTypesPicker";
+import { ConsistencyPicker } from "./components/ConsistencyPicker";
+import { TestTypesPicker } from "./components/TestTypesPicker";
 
 import { makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -11,7 +11,8 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { PerformedTestPicker } from "./PerformedTestPicker";
+import { PerformedTestPicker } from "./components/PerformedTestPicker";
+import { AgeSlider } from "./components/AgeSlider";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,6 +33,7 @@ const Container = styled.div`
 export const Filters = ({
   onGenderChanged,
   onPhChanged,
+  onAgeChanged,
   onConsistencyChanged,
   onTestTypeChanged,
   onAkkermansiaMuciniphila,
@@ -51,8 +53,9 @@ export const Filters = ({
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Container>
-            <TestTypesPicker onTestTypeChanged={onTestTypeChanged} />
+            <AgeSlider onAgeChanged={onAgeChanged} />
             <GenderPicker onGenderChanged={onGenderChanged} />
+            <TestTypesPicker onTestTypeChanged={onTestTypeChanged} />
             <ConsistencyPicker onConsistencyChanged={onConsistencyChanged} />
             <PerformedTestPicker onTestChanged={onAkkermansiaMuciniphila} testName={"Akkermansia Muciniphila"} />
             <PerformedTestPicker onTestChanged={onFaecalibactriumPrausnitzii} testName={"Faecalibactrium Prausnitzii"} />
