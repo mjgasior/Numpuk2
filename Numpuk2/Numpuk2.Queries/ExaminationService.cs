@@ -53,11 +53,17 @@ namespace Numpuk2.Queries
                 examinationsSet = examinationsSet.Where(x => consistencyNumbers.Any(y => y == (int)x.Consistency));
             }
 
-            /*List<int> akkermansiaMuciniphilaNumbers = akkermansiaMuciniphila.Select(item => (int)item).ToList();
+            List<bool?> akkermansiaMuciniphilaNumbers = akkermansiaMuciniphila.Select(item => SetItem(item)).ToList();
             if (akkermansiaMuciniphilaNumbers.Count > 0 && akkermansiaMuciniphilaNumbers.Count < 3)
             {
-                examinationsSet = examinationsSet.Where(x => akkermansiaMuciniphilaNumbers.Any(y => y == (int)x.));
-            }*/
+                examinationsSet = examinationsSet.Where(x => akkermansiaMuciniphilaNumbers.Any(y => y == x.HasAkkermansiaMuciniphila));
+            }
+
+            List<bool?> faecalibactriumPrausnitziiNumbers = faecalibactriumPrausnitzii.Select(item => SetItem(item)).ToList();
+            if (faecalibactriumPrausnitziiNumbers.Count > 0 && faecalibactriumPrausnitziiNumbers.Count < 3)
+            {
+                examinationsSet = examinationsSet.Where(x => faecalibactriumPrausnitziiNumbers.Any(y => y == x.HasFaecalibactriumPrausnitzii));
+            }
 
             var examinations = examinationsSet.Include(x => x.Client)
                 .Include(x => x.Results)
@@ -96,6 +102,20 @@ namespace Numpuk2.Queries
             };
 
             return result;
+        }
+
+        private bool? SetItem(ExaminationStatus item)
+        {
+            switch (item)
+            {
+                case ExaminationStatus.POSITIVE:
+                    return true;
+                case ExaminationStatus.NEGATIVE:
+                    return false;
+                case ExaminationStatus.NOT_PERFORMED:
+                default:
+                    return null;
+            }
         }
 
         private double GetClientAge(Examination examination)
