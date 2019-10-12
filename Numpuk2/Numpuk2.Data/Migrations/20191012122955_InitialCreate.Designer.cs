@@ -10,7 +10,7 @@ using Numpuk2.Data;
 namespace Numpuk2.Data.Migrations
 {
     [DbContext(typeof(NumpukContext))]
-    [Migration("20190929205022_InitialCreate")]
+    [Migration("20191012122955_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,9 @@ namespace Numpuk2.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
+
+                    b.Property<double>("AgeOfClient")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("ClientId")
                         .HasColumnType("text");

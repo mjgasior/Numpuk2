@@ -1,5 +1,6 @@
 ﻿using Numpuk2.Domain;
 using Numpuk2.Domain.Parameters;
+using System;
 using System.Linq;
 
 namespace Numpuk2.Utils
@@ -17,6 +18,7 @@ namespace Numpuk2.Utils
 
             return new Examination
             {
+                AgeOfClient = CalculateAge(readerExamination.Owner.MaterialRegistrationDate, readerExamination.Owner.Birthday),
                 Type = (ExaminationType)readerExamination.Type,
                 Id = readerExamination.Hash,
                 Consistency = (Consistency)readerExamination.StoolConsistency,
@@ -28,6 +30,29 @@ namespace Numpuk2.Utils
                 GeneralNumberOfBacteria = readerExamination.GeneralNumberOfBacteria,
                 MaterialRegistrationDate = readerExamination.Owner.MaterialRegistrationDate
             };
+        }
+
+        private static double CalculateAge(DateTime materialRegistrationDate, DateTime birthdate)
+        {
+            int age = materialRegistrationDate.Year - birthdate.Year;
+            if (birthdate.Date > materialRegistrationDate.AddYears(-age))
+            {
+                age--;
+            }
+
+            double days = materialRegistrationDate.DayOfYear - birthdate.DayOfYear;
+            double daysAsFraction;
+            const double DAYS_IN_A_YEAR_IGNORING_LEAP_YEARS = 365;
+            if (days < 0)
+            {
+                daysAsFraction = -days / DAYS_IN_A_YEAR_IGNORING_LEAP_YEARS;
+            } 
+            else
+            {
+                daysAsFraction = materialRegistrationDate.DayOfYear / DAYS_IN_A_YEAR_IGNORING_LEAP_YEARS;
+            }
+
+            return (double)age + daysAsFraction;
         }
     }
 }

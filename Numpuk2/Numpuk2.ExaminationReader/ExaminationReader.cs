@@ -60,7 +60,7 @@ namespace Numpuk2.ExaminationReader
             return examination;
         }
 
-        private Examination CreateCandidiasisExamination(ISheet sheet, ExaminationType type, Models.Patient client)
+        private Examination CreateCandidiasisExamination(ISheet sheet, ExaminationType type, Patient client)
         {
             var examination = new CandidiasisExamination(sheet);
             var candidiasisExamination = new Examination

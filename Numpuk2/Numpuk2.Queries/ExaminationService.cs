@@ -101,7 +101,8 @@ namespace Numpuk2.Queries
                     Id = examination.Id,
                     PhValue = examination.PhValue,
                     Results = examination.Results.Select(x => new ResultResponse(x.Name, x.Value)).ToList(),
-                    Type = examination.Type
+                    Type = examination.Type,
+                    AgeOfClient = examination.AgeOfClient
                 });
             }
 

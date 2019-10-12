@@ -32,7 +32,8 @@ namespace Numpuk2.Data.Migrations
                     HasAkkermansiaMuciniphila = table.Column<bool>(nullable: true),
                     HasFaecalibactriumPrausnitzii = table.Column<bool>(nullable: true),
                     GeneralNumberOfBacteria = table.Column<double>(nullable: true),
-                    MaterialRegistrationDate = table.Column<DateTime>(nullable: false)
+                    MaterialRegistrationDate = table.Column<DateTime>(nullable: false),
+                    AgeOfClient = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
