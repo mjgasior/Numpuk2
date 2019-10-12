@@ -33,7 +33,7 @@ namespace Numpuk2.Data.Migrations
                     HasFaecalibactriumPrausnitzii = table.Column<bool>(nullable: true),
                     GeneralNumberOfBacteria = table.Column<double>(nullable: true),
                     MaterialRegistrationDate = table.Column<DateTime>(nullable: false),
-                    AgeOfClient = table.Column<double>(nullable: false)
+                    ClientAge = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {

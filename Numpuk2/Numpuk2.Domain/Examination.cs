@@ -17,6 +17,6 @@ namespace Numpuk2.Domain
         public bool? HasFaecalibactriumPrausnitzii { get; set; }
         public double? GeneralNumberOfBacteria { get; set; }
         public DateTime MaterialRegistrationDate { get; set; }
-        public double AgeOfClient { get; set; }
+        public double ClientAge { get; set; }
     }
 }

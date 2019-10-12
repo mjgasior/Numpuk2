@@ -113,8 +113,7 @@ namespace Numpuk2.ExaminationReader
             {
                 Birthday = birthday,
                 Gender = Converter.SetGender(patient.Gender),
-                // Id = Hash.Generate(patient.Pesel),
-                Id = patient.Name,
+                Id = Hash.Generate(patient.Pesel),
                 Address = patient.Address,
                 MaterialRegistrationDate = materialRegistrationDate
             };

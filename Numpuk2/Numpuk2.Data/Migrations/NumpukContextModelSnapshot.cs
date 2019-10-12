@@ -40,7 +40,7 @@ namespace Numpuk2.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<double>("AgeOfClient")
+                    b.Property<double>("ClientAge")
                         .HasColumnType("double precision");
 
                     b.Property<string>("ClientId")

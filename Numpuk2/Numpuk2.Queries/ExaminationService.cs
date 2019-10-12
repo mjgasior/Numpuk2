@@ -52,7 +52,7 @@ namespace Numpuk2.Queries
 
             if (minAge > 0 || maxAge < 140)
             {
-                examinationsSet.Where(x => IsInAge(x, minAge, maxAge));
+                examinationsSet.Where(x => x.ClientAge >= minAge && x.ClientAge <= maxAge);
             }
 
             if (gender != null)
@@ -90,7 +90,7 @@ namespace Numpuk2.Queries
                 {
                     Client = new ClientResponse
                     {
-                        Age = GetClientAge(examination),
+                        Age = examination.ClientAge,
                         Gender = examination.Client.Gender,
                         Id = examination.Client.Id
                     },
@@ -102,7 +102,7 @@ namespace Numpuk2.Queries
                     PhValue = examination.PhValue,
                     Results = examination.Results.Select(x => new ResultResponse(x.Name, x.Value)).ToList(),
                     Type = examination.Type,
-                    AgeOfClient = examination.AgeOfClient
+                    ClientAge = examination.ClientAge
                 });
             }
 
@@ -118,12 +118,6 @@ namespace Numpuk2.Queries
             return result;
         }
 
-        private bool IsInAge(Examination x, double minAge, double maxAge)
-        {
-            double age = GetClientAge(x);
-            return age <= maxAge && age >= minAge;
-        }
-
         private bool? SetItem(ExaminationStatus item)
         {
             switch (item)
@@ -136,12 +130,6 @@ namespace Numpuk2.Queries
                 default:
                     return null;
             }
-        }
-
-        private double GetClientAge(Examination examination)
-        {
-            const double DAYS_IN_A_YEAR = 365.0d;
-            return (examination.MaterialRegistrationDate - examination.Client.Birthday).TotalDays / DAYS_IN_A_YEAR;
         }
     }
 }
