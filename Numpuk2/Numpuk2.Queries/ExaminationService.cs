@@ -44,7 +44,7 @@ namespace Numpuk2.Queries
 
             if (minPh > 0 || maxPh < 14)
             {
-                examinationsSet.Where(x => x.PhValue != null && x.PhValue >= minPh && x.PhValue <= maxPh);
+                examinationsSet = examinationsSet.Where(x => x.PhValue != null && x.PhValue >= minPh && x.PhValue <= maxPh);
             }
 
             double minAge = age.Length < 2 ? 0 : age[0];
@@ -52,7 +52,7 @@ namespace Numpuk2.Queries
 
             if (minAge > 0 || maxAge < 140)
             {
-                examinationsSet.Where(x => x.ClientAge >= minAge && x.ClientAge <= maxAge);
+                examinationsSet = examinationsSet.Where(x => x.ClientAge >= minAge && x.ClientAge <= maxAge);
             }
 
             if (gender != null)
