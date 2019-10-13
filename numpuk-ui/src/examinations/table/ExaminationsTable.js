@@ -14,6 +14,7 @@ import {
   getAge
 } from "./helpers";
 import { DoubleScrollbar } from "./DoubleScrollbar";
+import styled from 'styled-components';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,11 +33,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const Container = styled.div`
+  margin: 10px;
+  display: flex;
+  flex-grow: 1;
+`;
+
+
 export const ExaminationsTable = ({ data, testTypes }) => {
   const classes = useStyles();
 
-  if (!data) {
-    return null;
+  if (data.length === 0) {
+    return <Container>Brak wyników o podanych kryteriach</Container>;
   }
 
   return (
