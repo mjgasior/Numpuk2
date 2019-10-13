@@ -47,8 +47,7 @@ export const ExaminationsTable = ({ data, testTypes }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Płeć</TableCell>
-                <TableCell align="right">Wiek</TableCell>
-                <TableCell align="right">Wiek2</TableCell>
+                <TableCell align="right">Wiek w momencie pobrania materiału</TableCell>
                 <TableCell align="right">PH</TableCell>
                 <TableCell align="right">Konsystencja</TableCell>
                 <TableCell align="right">Ilość bakterii</TableCell>
@@ -69,7 +68,6 @@ export const ExaminationsTable = ({ data, testTypes }) => {
                   results,
                   phValue,
                   consistency,
-                  ageOfClient,
                   generalNumberOfBacteria,
                   hasAkkermansiaMuciniphila,
                   hasFaecalibactriumPrausnitzii
@@ -80,9 +78,6 @@ export const ExaminationsTable = ({ data, testTypes }) => {
                     </TableCell>
                     <TableCell align="right">
                       {getAge(client.age)}
-                    </TableCell>
-                    <TableCell align="right">
-                      {ageOfClient}
                     </TableCell>
                     <TableCell align="right">{phValue}</TableCell>
                     <TableCell align="right">

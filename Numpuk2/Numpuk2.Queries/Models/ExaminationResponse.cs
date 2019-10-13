@@ -14,6 +14,5 @@ namespace Numpuk2.Queries.Models
         public bool? HasAkkermansiaMuciniphila { get; set; }
         public bool? HasFaecalibactriumPrausnitzii { get; set; }
         public double? GeneralNumberOfBacteria { get; set; }
-        public double ClientAge { get; internal set; }
     }
 }
