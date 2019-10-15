@@ -86,11 +86,33 @@ namespace Numpuk2.Queries
 
             foreach (Examination examination in examinations.Results)
             {
+                double anaerobic = 0, aerobic = 0;
+                List<ResultResponse> resultsResponse = new List<ResultResponse>();
+                foreach (Result item in examination.Results)
+                {
+                    resultsResponse.Add(new ResultResponse(item.Name, item.Value));
+                    bool isFungi = TestTypes.GetFungi().Any(x => x.Contains(item.Name));
+                    if (isFungi)
+                    {
+                        continue;
+                    }
+
+                    bool isAnaerobic = TestTypes.GetAnaerobic().Any(x => x.Contains(item.Name));
+                    if (isAnaerobic)
+                    {
+                        anaerobic += item.Value;
+                    }
+                    else
+                    {
+                        aerobic += item.Value;
+                    }
+                }
+
                 newList.Add(new ExaminationResponse
                 {
                     Client = new ClientResponse
                     {
-                        Age = examination.ClientAge,
+                        Age = Math.Round(examination.ClientAge, 3),
                         Gender = examination.Client.Gender,
                         Id = examination.Client.Id
                     },
@@ -100,8 +122,9 @@ namespace Numpuk2.Queries
                     HasFaecalibactriumPrausnitzii = examination.HasFaecalibactriumPrausnitzii,
                     Id = examination.Id,
                     PhValue = examination.PhValue,
-                    Results = examination.Results.Select(x => new ResultResponse(x.Name, x.Value)).ToList(),
-                    Type = examination.Type
+                    Results = resultsResponse,
+                    Type = examination.Type,
+                    AnaerobicToAerobic = Math.Round(anaerobic / aerobic, 3)
                 });
             }
 
