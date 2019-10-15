@@ -25,6 +25,7 @@ namespace Numpuk2.Utils
                 PhValue = readerExamination.Ph,
                 Results = readerExamination.Results.Select(element => new Result(element)).ToList(),
                 Client = client,
+                ClientId = client.Id,
                 HasAkkermansiaMuciniphila = readerExamination.HasAkkermansiaMuciniphila,
                 HasFaecalibactriumPrausnitzii = readerExamination.HasFaecalibactriumPrausnitzii,
                 GeneralNumberOfBacteria = readerExamination.GeneralNumberOfBacteria,

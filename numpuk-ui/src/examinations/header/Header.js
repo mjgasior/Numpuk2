@@ -40,7 +40,7 @@ export const Header = ({
         onChange={event => setCount(event.target.value)}
         inputProps={{
           name: "page",
-          id: "[age-simple"
+          id: "page-simple"
         }}
       >
         <MenuItem value={10}>10 wpisów na stronę</MenuItem>

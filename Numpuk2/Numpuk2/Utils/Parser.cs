@@ -55,7 +55,7 @@ namespace Numpuk2.Utils
                 {
                     _logger.FileError(fileName, e);
                     result.FileName += " UWAGA BŁĄD";
-                    result.Error = "Napotkano problem!";
+                    result.Error = e.Message;
                 }
                 await websocketToAll.SendAsync("FileProcessed", result);
             }

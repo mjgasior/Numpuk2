@@ -11,7 +11,7 @@ namespace Numpuk2.Hubs
             await Clients.All.SendAsync("FilesAccepted", "Pliki w trakcie procesowania...");
             string[] filePaths = Directory.GetAllFileNames(model.Directory);
 
-            var parser = new Parser(filePaths, model.Password, "5433", new Logger());
+            var parser = new Parser(filePaths, model.Password, "5432", new Logger());
             await parser.Run(Clients.All);
             await Clients.All.SendAsync("AllFilesDone");
         }

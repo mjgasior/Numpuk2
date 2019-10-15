@@ -14,7 +14,7 @@ const Container = styled.div`
 export class Uploading extends Component {
   constructor(props) {
     super(props);
-    this.state = { hubConnection: null, message: "", progress: 0 };
+    this.state = { hubConnection: null, message: "", progress: 0, errorList: [] };
   }
 
   componentDidMount = () => {
@@ -40,11 +40,20 @@ export class Uploading extends Component {
 
       this.state.hubConnection.on(
         "FileProcessed",
-        ({ fileName, fileNumber, totalCount }) => {
+        ({ fileName, fileNumber, totalCount, error }) => {
           this.setState({
             message: fileName,
             progress: (fileNumber / totalCount) * 100
           });
+
+          if (error) {
+            console.log(fileName + " @ " + error);
+            const newProblem = fileName + " @ " + error;
+            this.setState(prev => {
+              const errors = [...prev.errorList, newProblem];
+              return { ...prev, errorList: errors };
+            });
+          }
         }
       );
 
@@ -53,10 +62,12 @@ export class Uploading extends Component {
   };
 
   render() {
+    const { message, progress, errorList } = this.state;
     return (
       <Container>
-        <div>{this.state.message}</div>
-        <LinearProgress variant="determinate" value={this.state.progress} />
+        <div>{message}</div>
+        <LinearProgress variant="determinate" value={progress} />
+        {errorList.length > 0 && errorList.map(x => <div key={x}>{x}</div>)}
       </Container>
     );
   }

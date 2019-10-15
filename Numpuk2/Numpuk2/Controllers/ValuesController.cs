@@ -28,7 +28,7 @@ namespace Numpuk2.Controllers
             [FromQuery] ExaminationStatus[] akkermansiaMuciniphila,
             [FromQuery] ExaminationStatus[] faecalibactriumPrausnitzii)
         {
-            var service = new ExaminationService(password, "5433");
+            var service = new ExaminationService(password, "5432");
             var examinations = service.GetAllExaminations(page, count, gender, age, ph, consistency, akkermansiaMuciniphila, faecalibactriumPrausnitzii);
 
             return examinations;

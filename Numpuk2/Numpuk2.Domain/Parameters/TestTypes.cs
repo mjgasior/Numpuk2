@@ -30,11 +30,13 @@ namespace Numpuk2.Domain.Parameters
                 "Clostridium ramosum",
                 "Clostridium bolteae",
                 "Collinsella spp.",
+                "Collinsella aerofaciens",
                 "Peptococcus spp.",
                 "Peptostreptococcus spp.",
                 "Prevotella spp.",
                 "Eggerthella lenta",
-                "Fusobacterium spp."
+                "Fusobacterium spp.",
+                "Megamonas spp."
             };
         }
 

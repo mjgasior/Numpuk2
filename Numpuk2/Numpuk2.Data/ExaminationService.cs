@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Numpuk2.Domain;
 
@@ -31,8 +32,15 @@ namespace Numpuk2.Data
         public void AddExamination(Examination examination)
         {
             Examination dbExamination = _context.Examinations.Find(examination.Id);
+            Client dbClient = _context.Clients.Find(examination.ClientId);
+
             if (dbExamination == null)
             {
+                if (dbClient != null)
+                {
+                    examination.Client = null;
+                }
+
                 _context.Examinations.Add(examination);
                 _context.SaveChanges();
             }
