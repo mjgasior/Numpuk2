@@ -48,7 +48,15 @@ namespace Numpuk2.ExaminationReader.ReadModels
             {
                 string baseValue = DeleteAllWhiteSpace(baseValueCell.StringCellValue);
                 string[] split = baseValue.ToLower().Split('x');
-                result = double.Parse($"{split[0]}E{exponent}");
+
+                if (split[0] == "o")
+                {
+                    result = 0;
+                }
+                else
+                {
+                    result = double.Parse($"{split[0]}E{exponent}");
+                }
                 return true;
             }
             else if (baseValueCell.CellType == CellType.Numeric)

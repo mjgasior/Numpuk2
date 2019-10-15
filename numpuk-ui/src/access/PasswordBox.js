@@ -13,7 +13,7 @@ export const PasswordBox = ({ password, setPassword }) => {
       id="outlined-adornment-password"
       variant="outlined"
       type={isPasswordVisible ? "text" : "password"}
-      label="Password"
+      label="Hasło"
       value={password}
       style={{ margin: 8 }}
       onChange={event => setPassword(event.target.value)}
