@@ -5,11 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-export const PasswordBox = ({ password, setPassword }) => {
+export const PasswordBox = ({ password, setPassword, isPasswordIncorrect }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
     <TextField
+      error={isPasswordIncorrect}
       id="outlined-adornment-password"
       variant="outlined"
       type={isPasswordVisible ? "text" : "password"}

@@ -5,7 +5,7 @@ import {
   transformPerformedTest
 } from "./../table/helpers";
 
-export const useExaminations = () => {
+export const useExaminations = onConnectionFailed => {
   const [page, setPageInternal] = useState(1);
   const [count, setCountInternal] = useState(25);
 
@@ -61,8 +61,15 @@ export const useExaminations = () => {
     }
 
     fetch(url)
+      .then(response => {
+        if (response.status === 200) {
+          return response;
+        }
+        onConnectionFailed();
+      })
       .then(resp => resp.json())
-      .then(data => setExaminations(data));
+      .then(data => setExaminations(data))
+      .catch(e => console.log(e));
   }, [
     password,
     page,
@@ -72,7 +79,8 @@ export const useExaminations = () => {
     consistency,
     ph,
     faecalibactriumPrausnitzii,
-    akkermansiaMuciniphila
+    akkermansiaMuciniphila,
+    onConnectionFailed
   ]);
 
   const resetPages = () => {

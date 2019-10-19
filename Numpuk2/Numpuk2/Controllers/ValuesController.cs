@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Numpuk2.Domain.Parameters;
 using Numpuk2.Queries;
+using Numpuk2.Queries.Exceptions;
 using Numpuk2.Queries.Models;
 using Numpuk2.Queries.Pagination;
 
@@ -18,7 +19,7 @@ namespace Numpuk2.Controllers
         }
 
         [HttpGet("examinations")]
-        public PagedResult<ExaminationResponse> GetExaminations([FromQuery] string password, 
+        public ActionResult<PagedResult<ExaminationResponse>> GetExaminations([FromQuery] string password, 
             [FromQuery] int page, 
             [FromQuery] int count,
             [FromQuery] double[] age,
@@ -28,10 +29,17 @@ namespace Numpuk2.Controllers
             [FromQuery] ExaminationStatus[] akkermansiaMuciniphila,
             [FromQuery] ExaminationStatus[] faecalibactriumPrausnitzii)
         {
-            var service = new ExaminationService(password, "5432");
-            var examinations = service.GetAllExaminations(page, count, gender, age, ph, consistency, akkermansiaMuciniphila, faecalibactriumPrausnitzii);
+            try
+            {
+                var service = new ExaminationService(password, "5432");
+                var examinations = service.GetAllExaminations(page, count, gender, age, ph, consistency, akkermansiaMuciniphila, faecalibactriumPrausnitzii);
 
-            return examinations;
+                return examinations;
+            }
+            catch (AuthorizationException)
+            {
+                return Unauthorized();                
+            }
         }
 
         [HttpGet("testTypes")]

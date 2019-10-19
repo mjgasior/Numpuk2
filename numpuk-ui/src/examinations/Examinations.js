@@ -7,8 +7,8 @@ import { Header } from "./header/Header";
 import { useDataBuffer } from "./hooks/useDataBuffer";
 import { Loader } from "./Loader";
 
-export const Examinations = () => {
-  const { examinations, pagination, filters } = useExaminations();
+export const Examinations = ({ onConnectionFailed }) => {
+  const { examinations, pagination, filters } = useExaminations(onConnectionFailed);
   const [testTypes, setFamilies] = useTestTypes();
   const {
     setAge,

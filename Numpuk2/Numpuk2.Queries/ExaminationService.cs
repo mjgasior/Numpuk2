@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Numpuk2.Data;
 using Numpuk2.Domain;
 using Numpuk2.Domain.Parameters;
+using Numpuk2.Queries.Exceptions;
 using Numpuk2.Queries.Models;
 using Numpuk2.Queries.Pagination;
 using System;
@@ -26,6 +28,15 @@ namespace Numpuk2.Queries
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Migration successful!");
                 Console.ResetColor();
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine(e);
+                if (e.SqlState == "28P01")
+                {
+                    throw new AuthorizationException();
+                }
+                throw;
             }
             catch (Exception e)
             {

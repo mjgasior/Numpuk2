@@ -15,6 +15,7 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+  const [isPasswordIncorrect, setIsPasswordIncorrect] = useState(false);
   const [password, setPassword] = useState("");
   const [hasPassword, setHasPassword] = useState("");
 
@@ -23,7 +24,12 @@ function App() {
       <AccessContext.Provider value={password}>
         <AppContainer style={{ alignItems: "unset", justifyContent: "unset" }}>
           <UploadDialog />
-          <Examinations />
+          <Examinations
+            onConnectionFailed={() => {
+              setHasPassword(false);
+              setIsPasswordIncorrect(true);
+            }}
+          />
         </AppContainer>
       </AccessContext.Provider>
     );
@@ -31,6 +37,7 @@ function App() {
     return (
       <AppContainer>
         <AccessView
+          isPasswordIncorrect={isPasswordIncorrect}
           onPasswordSet={newPassword => {
             setPassword(newPassword);
             setHasPassword(true);
