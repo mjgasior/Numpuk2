@@ -19,7 +19,7 @@ export class Uploading extends Component {
 
   componentDidMount = () => {
     const hubConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:44392/filesHub")
+      .withUrl("https://localhost:5001/filesHub")
       .build();
 
     this.setState({ hubConnection }, () => {

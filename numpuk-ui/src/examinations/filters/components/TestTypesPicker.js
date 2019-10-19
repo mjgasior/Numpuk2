@@ -44,7 +44,7 @@ export const TestTypesPicker = ({ onTestTypeChanged }) => {
               value="anaerobic"
             />
           }
-          label="Tlenowe"
+          label="Beztlenowe"
         />
         <FormControlLabel
           control={

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PasswordBox } from "./PasswordBox";
 import Button from "@material-ui/core/Button";
+import logo from './../resources/logofull.png'; 
 
 export const AccessView = ({ onPasswordSet }) => {
   const [password, setPassword] = useState("");
@@ -20,6 +21,7 @@ export const AccessView = ({ onPasswordSet }) => {
 
   return (
     <>
+      <img src={logo} alt="Logo" />
       <PasswordBox password={password} setPassword={setPassword} />
       <Button
         variant="contained"
