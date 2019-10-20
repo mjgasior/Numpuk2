@@ -17,5 +17,7 @@ echo "Deleting wwwroot"
 rm -rf ./Numpuk2/wwwroot/
 
 echo "Reseting repository"
-cd ./../../
+cd ./../
 git reset --hard
+
+sleep 50s
