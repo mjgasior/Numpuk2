@@ -11,6 +11,7 @@ rm -rf ./numpuk-ui/build/
 
 echo "Make server build"
 cd ./Numpuk2
+dotnet restore
 dotnet build
 
 echo "Deleting wwwroot"
