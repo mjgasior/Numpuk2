@@ -20,4 +20,10 @@ echo "Reseting repository"
 cd ./../
 git reset --hard
 
-sleep 50s
+echo "Copy build"
+cp -a ./Numpuk2/Numpuk2/bin/. ./build/
+
+echo "Deleting source build"
+rm -rf ./Numpuk2/Numpuk2/bin/
+
+sleep 30s
