@@ -11,8 +11,7 @@ rm -rf ./numpuk-ui/build/
 
 echo "Make server build"
 cd ./Numpuk2
-dotnet restore
-dotnet build
+dotnet publish -c Release
 
 echo "Deleting wwwroot"
 rm -rf ./Numpuk2/wwwroot/
@@ -22,7 +21,7 @@ cd ./../
 git reset --hard
 
 echo "Copy build"
-cp -a ./Numpuk2/Numpuk2/bin/. ./build/
+cp -a ./Numpuk2/Numpuk2/bin/Release/netcoreapp3.0/publish/. ./build/
 
 echo "Deleting source build"
 rm -rf ./Numpuk2/Numpuk2/bin/
